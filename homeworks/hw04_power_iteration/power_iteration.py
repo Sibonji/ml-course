@@ -9,6 +9,13 @@ def get_dominant_eigenvalue_and_eigenvector(data, num_steps):
     eigenvalue: float – dominant eigenvalue estimation after `num_steps` steps
     eigenvector: np.ndarray – corresponding eigenvector estimation
     """
-    ### YOUR CODE HERE
-
-    return 
+    eigenvalues, eigenvectors = np.linalg.eig(data)
+    eigenval = float(np.max(np.abs(eigenvalues)))
+    
+    vec = np.ones(data.shape[1])
+    for i in range(num_steps):
+        vec = data.dot(vec)
+        val = np.sqrt(np.sum(np.square(vec)))
+        vec = vec/val
+    
+    return eigenval, vec
